@@ -3,9 +3,10 @@
     "target": "es5",
     "module": "commonjs",
     "declaration": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "removeComments": true,
     "experimentalDecorators": true,
+    "strictNullChecks": true,
     "noLib": false,
     "jsx": "react",
     "outDir": "dist"

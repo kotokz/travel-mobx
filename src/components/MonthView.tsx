@@ -41,10 +41,11 @@ class ShiftTable extends React.Component<{rowdays?: MonthDate[], rowPeriod: stri
     return <th key={day.date + day.dayOfWeek}> {day.date}</th>;
   }
   addShiftRow(name: string, dataMap: ShiftMap) {
-    return <ShiftRow name={name} rowdays={this.props.rowdays} dataMap={dataMap} key={name}/>;
+    if (this.props.rowdays)
+      return <ShiftRow name={name} rowdays={this.props.rowdays} dataMap={dataMap} key={name}/>;
   }
   render() {
-    if (!this.props.shiftStore)
+    if (!this.props.shiftStore || !this.props.rowdays)
       return <div> Not Yet Initialized </div>;
     return <Table striped bordered condensed hover>
       <thead>
@@ -61,9 +62,10 @@ class ShiftTable extends React.Component<{rowdays?: MonthDate[], rowPeriod: stri
 }
 
 @observer
-class ShiftRow extends React.Component<{name: string, rowdays?: MonthDate[], dataMap: ShiftMap}, {}> {
+class ShiftRow extends React.Component<{name: string, rowdays: MonthDate[], dataMap: ShiftMap}, {}> {
   dayToCell(date: MonthDate) {
-    return <ShiftCell key={this.props.name + date.date} name={this.props.name} date={date} dataMap={this.props.dataMap} monthView={ this.props.rowdays.length > 20 }/>;
+    return <ShiftCell key={this.props.name + date.date} name={this.props.name} date={date}
+      dataMap={this.props.dataMap} monthView={ this.props.rowdays.length > 20 }/>;
   }
   render() {
     return <tr>
