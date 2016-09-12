@@ -15,6 +15,7 @@ export default class ShiftStore {
         date: monthDate.format("MMM/D"),
         dayOfWeek: monthDate.format("ddd"),
         isoweekdate: monthDate.isoWeekday(),
+        isoFormat: monthDate.format("YYYY-MM-DD"),
       });
       monthDate.add(1, "day");
     });
@@ -30,6 +31,7 @@ export default class ShiftStore {
         date: monthDate.format("MMM/D"),
         dayOfWeek: monthDate.format("ddd"),
         isoweekdate: monthDate.isoWeekday(),
+        isoFormat: monthDate.format("YYYY-MM-DD"),
       });
       monthDate.add(1, "day");
     });
@@ -37,7 +39,7 @@ export default class ShiftStore {
   }
 
   @action SetShift(name: string, newShift: Shift, date: MonthDate) {
-    this.peopleMap.get(name).set(date.date, newShift);
+    this.peopleMap.get(name).set(date.isoFormat, newShift);
   }
 
   @action getAllProducts(): void {
@@ -47,5 +49,14 @@ export default class ShiftStore {
     this.peopleMap.set("Jay Yuan", asMap().merge(SampleData()));
     this.peopleMap.set("Lex Guan", asMap().merge(SampleData()));
     this.peopleMap.set("Sophie Su", asMap().merge(SampleData()));
+  }
+
+  @action SetWholeWeekShift(name: string, newShift: Shift, date: MonthDate) {
+    let weekDate = moment(date.isoFormat).startOf("week");
+    _.times(5, n => {
+      weekDate.add(1, "day");
+      this.peopleMap.get(name).set(weekDate.format("YYYY-MM-DD"), newShift);
+
+    });
   }
 }
