@@ -23,3 +23,27 @@
 .table-hover tbody tr:hover  > td.Late{
   background-color: #d9edf7 !important;
 }
+
+.btn.Morning {
+  background-color: #dff0d8;
+  border-color: transparent;
+  color: #333333;
+}
+
+.btn.weekend {
+  background-color: #f2dede;
+  border-color: transparent;
+  color: #333333;
+}
+
+.btn.Normal {
+  background-color: #fcf8e3;
+  border-color: transparent;
+  color: #333333;
+}
+
+.btn.Late {
+  background-color: #d9edf7;
+  border-color: transparent;
+  color: #333333;
+}

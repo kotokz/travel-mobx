@@ -15,6 +15,9 @@ export default class AppView extends React.Component<{children: any}, {}> {
                         <LinkContainer to="/timer">
                             <NavItem> Timer 2</NavItem>
                         </LinkContainer>
+                        <LinkContainer to="/month">
+                            <NavItem> MonthTable </NavItem>
+                        </LinkContainer>
                     </Nav>
                 </Navbar>
                 { this.props.children }
