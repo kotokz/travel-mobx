@@ -78,31 +78,35 @@ class ShiftRow extends React.Component<{name: string, rowdays: MonthDate[], data
 @inject("shiftStore")
 @observer
 class ShiftCell extends React.Component<{name: string, date: MonthDate, dataMap: ShiftMap, monthView: boolean, shiftStore?: ShiftStore}, {}> {
-  eventClick(shift: Shift) {
-    if (this.props.shiftStore)
-      this.props.shiftStore.SetShift(this.props.name, shift, this.props.date);
+  eventClick = (eventKey: any) => {
+    if (this.props.shiftStore && eventKey in Shift)
+      this.props.shiftStore.SetShift(this.props.name, eventKey, this.props.date);
+    else
+      console.log(`Received unexpected Shift type: ${eventKey}`);
   }
-  doubleClick(shift?: Shift) {
+  doubleClick = () => {
+    let shift = this.props.dataMap.get(this.props.date.isoFormat);
     if (this.props.shiftStore && shift)
       this.props.shiftStore.SetWholeWeekShift(this.props.name, shift, this.props.date);
   }
-  buttonCell(name: string, shortName = "", shift?: Shift) {
-    return <td className={ name } onDoubleClick={ () => this.doubleClick(shift)} key={this.props.date.isoFormat + name}>
-      <DropdownButton title={ this.props.monthView ? shortName : name } id="bg-vertical-dropdown-1" className={ name } bsSize="xsmall">
-        <MenuItem eventKey="1" onClick={ () => this.eventClick(Shift.Morning) } >Morning</MenuItem>
-        <MenuItem eventKey="2" onClick={ () => this.eventClick(Shift.Normal) } >Normal</MenuItem>
-        <MenuItem eventKey="3" onClick={ () => this.eventClick(Shift.Late) } >Late</MenuItem>
+  buttonCell(name: string, shortName = "") {
+    return <td className={ name } onDoubleClick={ this.doubleClick } key={this.props.date.isoFormat + name}>
+      <DropdownButton title={ this.props.monthView ? shortName : name } id="bg-vertical-dropdown-1"
+          className={ name } bsSize="xsmall" onSelect={ this.eventClick } >
+        <MenuItem eventKey={ Shift.Morning } >Morning</MenuItem>
+        <MenuItem eventKey={ Shift.Normal } >Normal</MenuItem>
+        <MenuItem eventKey={ Shift.Late } >Late</MenuItem>
       </DropdownButton>
     </td>;
   }
   shiftToCell(shift: Shift) {
     switch (shift) {
       case Shift.Late:
-        return this.buttonCell("Late", "L", shift);
+        return this.buttonCell("Late", "L");
       case Shift.Morning:
-        return this.buttonCell("Morning", "M", shift);
+        return this.buttonCell("Morning", "M");
       case Shift.Normal:
-        return this.buttonCell("Normal", "N", shift);
+        return this.buttonCell("Normal", "N");
     }
   }
   render() {

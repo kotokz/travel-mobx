@@ -9,16 +9,30 @@
             true,
             "spaces"
         ],
+        "jsdoc-format": true,
+        "no-consecutive-blank-lines" : true,
+        "no-debugger": true,
+        "no-duplicate-key": true,
         "no-duplicate-variable": true,
         "no-eval": true,
         "no-internal-module": true,
         "no-trailing-whitespace": true,
+        "no-shadowed-variable": true,
+        "no-switch-case-fall-through": true,
+        "no-unreachable": true,
+        "no-unused-expression": true,
         "no-unsafe-finally": true,
         "no-var-keyword": true,
+        "no_unused-variable": [
+            true,
+            "check-parameters"
+        ],
+        "no-use-before-declare": false,   
         "one-line": [
             true,
             "check-open-brace",
-            "check-whitespace"
+            "check-whitespace",
+            "check-catch"       
         ],
         "quotemark": [
             true,
@@ -28,6 +42,13 @@
             true,
             "always"
         ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ],        
         "triple-equals": [
             true,
             "allow-null-check"
