@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import { Grid, Row, Col, PageHeader, Table, DropdownButton, MenuItem } from "react-bootstrap";
 import ShiftStore from "../stores/ShiftStore";
 import { ShiftMap, MonthDate, Shift } from "../stores/ShiftTypes";
+import Calendar from "./Calendar";
 
 @inject("shiftStore")
 @observer
@@ -22,7 +23,8 @@ export default class MonthView extends React.Component<{shiftStore?: ShiftStore}
             <Col xs={12} md={8}> <PageHeader> Week Table </PageHeader></Col>
           </Row>
           <Row>
-            <ShiftTable rowdays={ weekDays } rowPeriod="Week 03"/>
+            <Col xs={2} md={2}> <Calendar /> </Col>
+            <Col xs={8} md={8}> <ShiftTable rowdays={ weekDays } rowPeriod="Week 03"/> </Col>
           </Row>
           <Row>
             <Col xs={12} md={8}> <PageHeader> Month Table </PageHeader> </Col>
@@ -120,4 +122,3 @@ class ShiftCell extends React.Component<{name: string, date: MonthDate, dataMap:
     return this.buttonCell("");
   }
 }
-

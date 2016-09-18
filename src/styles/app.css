@@ -47,3 +47,50 @@
   border-color: transparent;
   color: #333333;
 }
+
+.calendar{
+
+}
+.calendar__day{
+    display: block;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+    padding: 4px;
+}
+.calendar__day:hover{
+    background-color: #eee;
+}
+.calendar__day--muted{
+    color: #999;
+}
+.calendar__day--selected{
+    background-color: #666;
+    color: #fff;
+}
+.calendar__day--selected:hover{
+    background-color: #999;
+    color: #fff;
+}
+
+.calendar__day--today{
+    background-color: blue;
+    color: #fff;
+}
+.calendar__day--today:hover{
+    background-color: #666;
+    color: #fff;
+}
+.calendar__selected-date{
+    display: block;
+    text-align: center;
+}
+.calendar__nav{
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #333;
+}
+.calendar__nav:hover{
+    background-color: #eee;
+}
