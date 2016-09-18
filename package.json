@@ -13,7 +13,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/lodash": "^4.14.34",
-    "@types/moment-range": "^2.0.30",
     "@types/react": "^0.14.34",
     "@types/react-bootstrap": "0.0.32",
     "@types/react-dom": "^0.14.16",
@@ -51,7 +50,6 @@
     "mobx-react": "^3.5.6",
     "mobx-react-devtools": "^4.2.6",
     "moment": "^2.15.0",
-    "moment-range": "^2.2.0",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",

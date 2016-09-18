@@ -3,7 +3,6 @@ import * as moment from "moment";
 import * as _ from "lodash";
 import { Shift, SampleData, MonthDate, ShiftMap } from "./ShiftTypes";
 
-
 export default class ShiftStore {
   public peopleMap: ObservableMap<ShiftMap> = asMap();
 
@@ -25,7 +24,7 @@ export default class ShiftStore {
         date: date.format("MMM/D"),
         dayOfWeek: date.format("ddd"),
         isoweekdate: date.isoWeekday(),
-        isoFormat: date.format("YYYY-MM-DD"),
+        isoFormat: date.format("YYYY-MM-DD")
       });
       date.add(1, "day");
     });
