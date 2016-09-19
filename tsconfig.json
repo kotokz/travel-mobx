@@ -11,6 +11,11 @@
     "jsx": "react",
     "outDir": "dist"
   },
+  "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "global.d.ts"
+  ],    
   "exclude": [
     "node_modules",
     "static"
