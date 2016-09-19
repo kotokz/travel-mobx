@@ -9,10 +9,6 @@ module.exports = {
   globals: {
     __DEV__: true
   },
-  proxy: {
-    host: "http://www.google.com",
-    match: /^\/api\//i
-  },
   webpack: {
     devtool: 'source-map',
     publicPath: '/'

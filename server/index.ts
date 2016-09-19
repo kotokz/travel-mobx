@@ -31,7 +31,6 @@ if (config.util.getEnv("NODE_ENV") === "development") {
 
   // Enable webpack-dev and webpack-hot middleware
   const publicPath = config.get("webpack.publicPath");
-
   app.use(webpackDevMiddleware(compiler, publicPath));
   app.use(webpackHMRMiddleware(compiler));
 } else {
