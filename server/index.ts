@@ -33,9 +33,10 @@ if (config.util.getEnv("NODE_ENV") === "development") {
   const publicPath = config.get("webpack.publicPath");
   app.use(webpackDevMiddleware(compiler, publicPath));
   app.use(webpackHMRMiddleware(compiler));
-} else {
-  app.use(convert(serve(config.get("webpack.dist"))));
 }
+
+app.use(convert(serve(config.get("webpack.dist"))));
+
 
 const port = config.get("server.port");
 app.listen(port, () => {

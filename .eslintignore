@@ -2,3 +2,4 @@ build/*.js
 config/*.js
 bin/*.js
 dist/*.js
+webpack*.js

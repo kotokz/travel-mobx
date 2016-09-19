@@ -6,7 +6,7 @@ module.exports = {
   },
   server: {
     host: 'localhost',
-    port: 8081,
+    port: 3000,
     static: path.resolve(__dirname, '../dist/static')
   },
   webpack: {

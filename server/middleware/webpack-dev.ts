@@ -1,7 +1,9 @@
 import * as WebpackDevMiddleware from "webpack-dev-middleware";
+import { Context } from "koa";
+import { compiler } from "webpack";
 import applyExpressMiddleware from "../libs/apply-express-middleware";
 
-export default function (compiler, publicPath) {
+export default function (compiler: compiler.Compiler, publicPath: string) {
 
   const middleware = WebpackDevMiddleware(compiler, {
     publicPath,
@@ -15,9 +17,9 @@ export default function (compiler, publicPath) {
     }
   });
 
-  return async function koaWebpackDevMiddleware (ctx, next) {
+  return async function koaWebpackDevMiddleware (ctx: Context, next: () => Promise<any>) {
     let hasNext = await applyExpressMiddleware(middleware, ctx.req, {
-      end: (content) => (ctx.body = content),
+      end: (content: any) => (ctx.body = content),
       setHeader: function () {
         ctx.set.apply(ctx, arguments);
       }

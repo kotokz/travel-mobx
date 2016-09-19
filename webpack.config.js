@@ -20,12 +20,14 @@ var webpackConfig = {
       'react',
       'react-router',
       'mobx',
-      'mobx-react'
+      'mobx-react',
+      'moment',
+      'lodash'
     ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: DEV ? "[name].js" : "[name].[hash].js",
+    filename: DEV ? "[name].js" : "[name].[ hash].js",
     publicPath: publicPath
   }
 };
@@ -38,7 +40,7 @@ if (DEV) {
   );
 }
 
-var cssLoader = 'css?sourceMap&-minimize&importLoader=1&modules&localIdentName=[name]__[local]___[hash:base64:5]';
+//var cssLoader = 'css?sourceMap&-minimize&importLoader=1&modules&localIdentName=[name]__[local]___[hash:base64:5]';
 webpackConfig.module = {
   loaders: [
     {
@@ -52,15 +54,11 @@ webpackConfig.module = {
     },
     {
       test: /\.css$/,
-      loader: DEV
-        ? 'style!' + cssLoader + '!postcss'
-        : ExtractTextPlugin.extract({fallbackLoader: "style-loader", loader: [cssLoader, 'postcss']})
+      loader:  ExtractTextPlugin.extract({fallbackLoader: "style-loader", loader: ['css-loader', 'postcss']})
     },
     {
       test: /\.less$/,
-      loader: DEV
-        ? 'style!' + cssLoader + '!postcss!less?sourceMap'
-        : ExtractTextPlugin.extract({fallbackLoader: 'style', loader: [cssLoader, 'postcss', 'less?sourceMap']})
+      loader: ExtractTextPlugin.extract({fallbackLoader: 'style', loader: ['css-loader', 'postcss', 'less?sourceMap']})
     }
   ]
 };
