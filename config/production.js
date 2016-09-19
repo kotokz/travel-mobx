@@ -1,6 +1,6 @@
 module.exports = {
   webpack: {
     devtool: null,
-    publicPath: '/'
+    publicPath: '/dist/'
   }
 };

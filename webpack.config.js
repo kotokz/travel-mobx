@@ -27,7 +27,8 @@ var webpackConfig = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: DEV ? "[name].js" : "[name].[ hash].js",
+    //filename: DEV ? "[name].js" : "[name].[ hash].js",
+    filename: "[name].js",
     publicPath: publicPath
   }
 };
@@ -82,19 +83,20 @@ webpackConfig.postcss = [
 ];
 
 webpackConfig.plugins = [
-  new ExtractTextPlugin({ 
-    filename: '[name].[contenthash].css', 
-    allChunks: true
-  }),
-  new HtmlWebpackPlugin({
-    template: path.join(__dirname, 'src/index.html'),
-    hash: false,
-    filename: 'index.html',
-    inject: 'body',
-    minify: {
-      collapseWhitespace: true
-    }
-  })
+  // new ExtractTextPlugin({ 
+  //   filename: '[name].[contenthash].css', 
+  //   allChunks: true
+  // }),
+  new ExtractTextPlugin("styles.css")
+  // new HtmlWebpackPlugin({
+  //   template: path.join(__dirname, 'src/index.html'),
+  //   hash: false,
+  //   filename: 'index.html',
+  //   inject: 'body',
+  //   minify: {
+  //     collapseWhitespace: true
+  //   }
+  // })
 ];
 
 var globals = config.get('globals');
@@ -115,7 +117,8 @@ if (DEV) {
 } else {
   webpackConfig.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor']
+      name: ['vendor'],
+      filename: 'vendor.js',
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),

@@ -5,7 +5,8 @@
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "outDir": "../bin",
-        "sourceMap": true
+        "sourceMap": true,
+        "jsx": "react"        
     },
     "compileOnSave": false,
     "include": [
