@@ -37,12 +37,12 @@ export default class ShiftStore {
 
   @action getAllProducts(): void {
     transaction(() => {
-      this.peopleMap.set("Tony Zhou", asMap().merge(SampleData()));
-      this.peopleMap.set("Simon Fan", asMap().merge(SampleData()));
-      this.peopleMap.set("Cashlin Chen", asMap().merge(SampleData()));
-      this.peopleMap.set("Jay Yuan", asMap().merge(SampleData()));
-      this.peopleMap.set("Lex Guan", asMap().merge(SampleData()));
-      this.peopleMap.set("Sophie Su", asMap().merge(SampleData()));
+      this.peopleMap.set("Adam Tom", asMap().merge(SampleData()));
+      this.peopleMap.set("Steven Fan", asMap().merge(SampleData()));
+      this.peopleMap.set("Adrian Chen", asMap().merge(SampleData()));
+      this.peopleMap.set("Dan luke", asMap().merge(SampleData()));
+      this.peopleMap.set("Alex An", asMap().merge(SampleData()));
+      this.peopleMap.set("Sophie Xie", asMap().merge(SampleData()));
     });
   }
 
