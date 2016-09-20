@@ -1,22 +1,12 @@
 import * as Koa from "koa";
 import * as webpack from "webpack";
-import * as serve from "koa-static";
-import * as mount from "koa-mount";
-import * as compose from "koa-compose";
 import * as config from "config";
+import { serverLogging, baseErrorHandling, serveStaticFiles, compressResponse} from "./middleware/baseMiddleware";
 import webpackDevMiddleware from "./middleware/webpack-dev";
 import webpackHMRMiddleware from "./middleware/webpack-hmr";
 import { renderReact }  from "./middleware/renderMiddleware";
 import router from "./router";
 let Pug = require("koa-pug");
-
-function serveStaticFiles() {
-  console.log(`${__dirname}/../dist`);
-  const staticFolder = mount("/static", serve(`${__dirname}/../static`));
-  const distFolder = mount("/dist", serve(`${__dirname}/../dist`));
-
-  return compose([staticFolder, distFolder]);
-}
 
 const app = new Koa();
 // Enable koa-proxy if it has been enabled in the config.
@@ -25,15 +15,11 @@ const app = new Koa();
 //   app.use(convert(proxy(proxyOption)));
 // }
 
-// This rewrites all routes requests to the root /index.html file
-// (ignoring file requests). If you want to implement isomorphic
-// rendering, you'll want to remove this middleware.
-// app.use(convert(historyApiFallback({
-//   verbose: false
-// })));
-
 const pug = new Pug({ viewPath: "./server/views" });
 pug.use(app);
+
+app.use(serverLogging());
+app.use(baseErrorHandling());
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
@@ -46,6 +32,8 @@ if (config.util.getEnv("NODE_ENV") === "development") {
   const publicPath = config.get("webpack.publicPath");
   app.use(webpackDevMiddleware(compiler, publicPath));
   app.use(webpackHMRMiddleware(compiler));
+} else {
+  app.use(compressResponse());
 }
 
 app.use(serveStaticFiles());

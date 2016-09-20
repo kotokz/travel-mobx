@@ -11,6 +11,6 @@ module.exports = {
   },
   webpack: {
     dist: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/dist/'
   }
 }

@@ -12,6 +12,5 @@ module.exports = {
   webpack: {
     devtool: 'source-map',
     dist: path.resolve(__dirname, '..'),
-    publicPath: '/dist/'
   }
 };

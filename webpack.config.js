@@ -1,9 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('config');
-var cssnano = require('cssnano');
 var env = config.util.getEnv('NODE_ENV');
 var DEV = env === 'development';
 var publicPath = config.get('webpack.publicPath');
@@ -11,8 +9,7 @@ var publicPath = config.get('webpack.publicPath');
 var webpackConfig = {
   devtool: config.get('webpack.devtool'),
   resolve: {
-    root: path.join(__dirname, 'src'),
-    extensions: ['', '.js', '.jsx', '.json', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
   },
   entry: {
     app: [path.join(__dirname, 'src/index')],
@@ -55,32 +52,32 @@ webpackConfig.module = {
     },
     {
       test: /\.css$/,
-      loader:  ExtractTextPlugin.extract({fallbackLoader: "style-loader", loader: ['css-loader', 'postcss']})
+      loader:  ExtractTextPlugin.extract({fallbackLoader: "style-loader", loader: ['css-loader', 'postcss-loader']})
     },
     {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract({fallbackLoader: 'style', loader: ['css-loader', 'postcss', 'less?sourceMap']})
+      loader: ExtractTextPlugin.extract({fallbackLoader: 'style', loader: ['css-loader', 'postcss-loader', 'less?sourceMap']})
     }
   ]
 };
 
-webpackConfig.postcss = [
-  cssnano({
-    autoprefixer: {
-      add: true,
-      remove: true,
-      browsers: ['last 2 versions']
-    },
-    discardComments: {
-      removeAll: true
-    },
-    discardUnused: false,
-    mergeIdents: false,
-    reduceIdents: false,
-    safe: true,
-    sourcemap: true
-  })
-];
+// webpackConfig.postcss = [
+//   cssnano({
+//     autoprefixer: {
+//       add: true,
+//       remove: true,
+//       browsers: ['last 2 versions']
+//     },
+//     discardComments: {
+//       removeAll: true
+//     },
+//     discardUnused: false,
+//     mergeIdents: false,
+//     reduceIdents: false,
+//     safe: true,
+//     sourcemap: true
+//   })
+// ];
 
 webpackConfig.plugins = [
   // new ExtractTextPlugin({ 
@@ -88,15 +85,6 @@ webpackConfig.plugins = [
   //   allChunks: true
   // }),
   new ExtractTextPlugin("styles.css")
-  // new HtmlWebpackPlugin({
-  //   template: path.join(__dirname, 'src/index.html'),
-  //   hash: false,
-  //   filename: 'index.html',
-  //   inject: 'body',
-  //   minify: {
-  //     collapseWhitespace: true
-  //   }
-  // })
 ];
 
 var globals = config.get('globals');
