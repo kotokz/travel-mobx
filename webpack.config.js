@@ -52,11 +52,11 @@ webpackConfig.module = {
     },
     {
       test: /\.css$/,
-      loader:  ExtractTextPlugin.extract({fallbackLoader: "style-loader", loader: ['css-loader', 'postcss-loader']})
+      loader: ExtractTextPlugin.extract({ fallbackLoader: "style-loader", loader: ['css-loader', 'postcss-loader'] })
     },
     {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract({fallbackLoader: 'style', loader: ['css-loader', 'postcss-loader', 'less?sourceMap']})
+      loader: ExtractTextPlugin.extract({ fallbackLoader: 'style', loader: ['css-loader', 'postcss-loader', 'less?sourceMap'] })
     }
   ]
 };
@@ -110,12 +110,12 @@ if (DEV) {
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.LoaderOptionsPlugin({ minimize: true, debug: false }),      
+    new webpack.LoaderOptionsPlugin({ minimize: true, debug: false }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         unused: true,
         dead_code: true,
-        screw_ie8: true, 
+        screw_ie8: true,
         warnings: false
       }
     })

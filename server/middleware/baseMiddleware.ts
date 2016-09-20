@@ -13,11 +13,13 @@ export function serveStaticFiles() {
 }
 
 export function baseErrorHandling() {
-  return async (ctx: Context, next: Function) => {
+  return async(ctx: Context, next: Function) => {
     try {
       await next();
     } catch (err) {
-      ctx.body = { message: err.message };
+      ctx.body = {
+        message: err.message
+      };
       ctx.status = err.status || 500;
     }
   };

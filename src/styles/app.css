@@ -1,26 +1,32 @@
-.table tbody tr > td.Morning{
+.table tbody tr>td.Morning {
   background-color: #dff0d8 !important;
 }
-.table tbody tr > td.weekend{
+
+.table tbody tr>td.weekend {
   background-color: #f2dede !important;
 }
-.table tbody tr > td.Normal{
+
+.table tbody tr>td.Normal {
   background-color: #fcf8e3 !important;
 }
-.table tbody tr > td.Late{
+
+.table tbody tr>td.Late {
   background-color: #d9edf7 !important;
 }
 
-.table-hover tbody tr:hover > td.Morning{
+.table-hover tbody tr:hover>td.Morning {
   background-color: #dff0d8 !important;
 }
-.table-hover tbody tr:hover  > td.weekend{
+
+.table-hover tbody tr:hover>td.weekend {
   background-color: #f2dede !important;
 }
-.table-hover tbody tr:hover > td.Normal{
+
+.table-hover tbody tr:hover>td.Normal {
   background-color: #fcf8e3 !important;
 }
-.table-hover tbody tr:hover  > td.Late{
+
+.table-hover tbody tr:hover>td.Late {
   background-color: #d9edf7 !important;
 }
 
@@ -48,49 +54,56 @@
   color: #333333;
 }
 
-.calendar{
+.calendar {}
 
-}
-.calendar__day{
-    display: block;
-    color: #333;
-    text-decoration: none;
-    text-align: center;
-    padding: 4px;
-}
-.calendar__day:hover{
-    background-color: #eee;
-}
-.calendar__day--muted{
-    color: #999;
-}
-.calendar__day--selected{
-    background-color: #666;
-    color: #fff;
-}
-.calendar__day--selected:hover{
-    background-color: #999;
-    color: #fff;
+.calendar__day {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  text-align: center;
+  padding: 4px;
 }
 
-.calendar__day--today{
-    background-color: blue;
-    color: #fff;
+.calendar__day:hover {
+  background-color: #eee;
 }
-.calendar__day--today:hover{
-    background-color: #666;
-    color: #fff;
+
+.calendar__day--muted {
+  color: #999;
 }
-.calendar__selected-date{
-    display: block;
-    text-align: center;
+
+.calendar__day--selected {
+  background-color: #666;
+  color: #fff;
 }
-.calendar__nav{
-    display: block;
-    text-decoration: none;
-    text-align: center;
-    color: #333;
+
+.calendar__day--selected:hover {
+  background-color: #999;
+  color: #fff;
 }
-.calendar__nav:hover{
-    background-color: #eee;
+
+.calendar__day--today {
+  background-color: blue;
+  color: #fff;
+}
+
+.calendar__day--today:hover {
+  background-color: #666;
+  color: #fff;
+}
+
+.calendar__selected-date {
+  display: block;
+  text-align: center;
+}
+
+.calendar__nav {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: #333;
+}
+
+.calendar__nav:hover {
+  background-color: #eee;
 }

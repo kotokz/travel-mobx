@@ -1,7 +1,7 @@
 var path = require('path');
 var defer = require('config/defer').deferConfig;
 
-var publicPath = function (cfg) {
+var publicPath = function(cfg) {
   return 'http://' + cfg.server.host + ':' + cfg.server.port + '/';
 };
 

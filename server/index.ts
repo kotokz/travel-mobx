@@ -1,10 +1,15 @@
 import * as Koa from "koa";
 import * as webpack from "webpack";
 import * as config from "config";
-import { serverLogging, baseErrorHandling, serveStaticFiles, compressResponse} from "./middleware/baseMiddleware";
+import {
+  serverLogging,
+  baseErrorHandling,
+  serveStaticFiles,
+  compressResponse
+} from "./middleware/baseMiddleware";
 import webpackDevMiddleware from "./middleware/webpack-dev";
 import webpackHMRMiddleware from "./middleware/webpack-hmr";
-import { renderReact }  from "./middleware/renderMiddleware";
+import { renderReact } from "./middleware/renderMiddleware";
 import router from "./router";
 let Pug = require("koa-pug");
 
@@ -15,11 +20,14 @@ const app = new Koa();
 //   app.use(convert(proxy(proxyOption)));
 // }
 
-const pug = new Pug({ viewPath: "./server/views" });
+const pug = new Pug({
+  viewPath: "./server/views"
+});
 pug.use(app);
 
-app.use(serverLogging());
-app.use(baseErrorHandling());
+app
+  .use(serverLogging())
+  .use(baseErrorHandling());
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
@@ -36,9 +44,10 @@ if (config.util.getEnv("NODE_ENV") === "development") {
   app.use(compressResponse());
 }
 
-app.use(serveStaticFiles());
-app.use(router.routes());
-app.use(renderReact());
+app
+  .use(serveStaticFiles())
+  .use(router.routes())
+  .use(renderReact());
 
 const port = config.get("server.port");
 app.listen(port, () => {
