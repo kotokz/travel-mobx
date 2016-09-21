@@ -11,7 +11,7 @@ import webpackDevMiddleware from "./middleware/webpack-dev";
 import webpackHMRMiddleware from "./middleware/webpack-hmr";
 import { renderReact } from "./middleware/renderMiddleware";
 import router from "./router";
-let Pug = require("koa-pug");
+import * as Pug from "koa-pug";
 
 const app = new Koa();
 // Enable koa-proxy if it has been enabled in the config.

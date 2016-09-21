@@ -9,6 +9,7 @@ var publicPath = config.get('webpack.publicPath');
 var webpackConfig = {
   devtool: config.get('webpack.devtool'),
   resolve: {
+    modules: ['node_modules', path.join(__dirname, '/node_modules')],
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
   },
   entry: {
@@ -19,7 +20,8 @@ var webpackConfig = {
       'mobx',
       'mobx-react',
       'moment',
-      'lodash'
+      'lodash',
+      'material-ui'
     ]
   },
   output: {

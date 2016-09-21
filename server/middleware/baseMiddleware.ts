@@ -3,7 +3,7 @@ import * as compress from "koa-compress";
 import * as serve from "koa-static";
 import * as mount from "koa-mount";
 import * as compose from "koa-compose";
-let logger = require("koa-logger");
+import * as logger from "koa-logger";
 
 export function serveStaticFiles() {
   const staticFolder = mount("/static", serve(`${__dirname}/../../static`));
