@@ -26,4 +26,3 @@ export default class AppView extends React.Component<{children: any}, {}> {
     );
   }
 };
-
