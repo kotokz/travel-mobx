@@ -1,4 +1,4 @@
-import { action, ObservableMap, asMap, transaction } from "mobx";
+import { action, ObservableMap, asMap, transaction, observable } from "mobx";
 import * as moment from "moment";
 import * as _ from "lodash";
 import { Shift, SampleData, MonthDate, ShiftMap } from "./ShiftTypes";
@@ -7,7 +7,11 @@ import { MobxStore } from "./StoreTypes";
 export default class ShiftStore implements MobxStore {
   public peopleMap: ObservableMap<ShiftMap> = asMap();
 
-  constructor() {
+  constructor(initialState?: ShiftStore) {
+    if (initialState) {
+      //Object.assign(this, initialState);
+      this.peopleMap = asMap().merge(initialState.peopleMap);
+    }
     this.getAllProducts();
   }
   ToStringArray(): string[] {

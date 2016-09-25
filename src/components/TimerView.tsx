@@ -5,20 +5,20 @@ import AppState from "../stores/AppStore";
 @inject("AppState")
 @observer
 export default class TimerView extends React.Component<{AppState?: AppState}, {}> {
-    render() {
-        if (!this.props.AppState)
-            return <div> Not Yet Initialized </div>;
-        return (
-            <div>
-                <button onClick={this.onReset}>
-                    Seconds passed: {this.props.AppState.timer}
-                </button>
-            </div>
-        );
-     }
+  render() {
+    if (!this.props.AppState)
+      return <div> Not Yet Initialized </div>;
+    return (
+      <div>
+        <button onClick={this.onReset}>
+            Seconds passed: {this.props.AppState.timer}
+        </button>
+      </div>
+    );
+  }
 
-     onReset = () => {
-        if (this.props.AppState)
-            this.props.AppState.resetTimer();
-     }
+  onReset = () => {
+    if (this.props.AppState)
+      this.props.AppState.resetTimer();
+  }
 };
