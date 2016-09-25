@@ -36,7 +36,8 @@ export default class Calendar extends React.Component<{CalendarStore?: CalendarS
                     </thead>
                     <tbody>
                         {this.props.CalendarStore.calendar.map((week: MomentRange, index: number) => {
-                            return <WeekRow key={index} week={week}/>;
+                            if (this.props.CalendarStore)
+                                return <WeekRow key={index} week={week} calendarStore={this.props.CalendarStore}/>;
                         })}
                     </tbody>
                 </table>
@@ -58,7 +59,7 @@ class SelectionDiv extends React.Component<{calendarStore: CalendarStore}, {}> {
 }
 
 @observer
-class WeekRow extends React.Component<{week: MomentRange}, {}> {
+class WeekRow extends React.Component<{week: MomentRange, calendarStore: CalendarStore}, {}> {
     render() {
         const dayList: moment.Moment[] = [];
         const currentDay = this.props.week.start.clone();
@@ -68,25 +69,23 @@ class WeekRow extends React.Component<{week: MomentRange}, {}> {
         while (currentDay.add(1, "day").diff(this.props.week.end) < 1);
 
         return <tr>{ dayList.map( (day: moment.Moment, index: number) => {
-            return <DayCell day={day} key={`day${index}`}/>;
+            return <DayCell day={day} key={`day${index}`} calendarStore={this.props.calendarStore}/>;
         })}</tr>;
     }
 }
 
-@inject("CalendarStore")
 @observer
-class DayCell extends React.Component<{day: moment.Moment, CalendarStore?: CalendarStore}, {}> {
+class DayCell extends React.Component<{day: moment.Moment, calendarStore: CalendarStore}, {}> {
     setDate(day: moment.Moment) {
-        if (this.props.CalendarStore)
-            this.props.CalendarStore.setDate(day);
+        if (this.props.calendarStore)
+            this.props.calendarStore.setDate(day);
     }
     render() {
-        if (!this.props.CalendarStore)
-            return <td><div> Not Yet Initialized </div></td>;
+
         const day = this.props.day;
-        const isCurrentMonth = day.month() === this.props.CalendarStore.month;
+        const isCurrentMonth = day.month() === this.props.calendarStore.month;
         const isToday = day.format("DD-MM-YYYY") === moment().format("DD-MM-YYYY");
-        const isSelected = day.format("DD-MM-YYYY") === this.props.CalendarStore.date.format("DD-MM-YYYY");
+        const isSelected = day.format("DD-MM-YYYY") === this.props.calendarStore.date.format("DD-MM-YYYY");
         let dayClasses = "calendar__day";
         if (!isCurrentMonth) {
             dayClasses += " calendar__day--muted";

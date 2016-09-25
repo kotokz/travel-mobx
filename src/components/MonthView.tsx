@@ -24,30 +24,32 @@ export default class MonthView extends React.Component<{ShiftStore?: ShiftStore}
           </Row>
           <Row>
             <Col xs={2} md={2}> <Calendar /> </Col>
-            <Col xs={8} md={8}> <ShiftTable rowdays={ weekDays } rowPeriod="Week 03"/> </Col>
+            <Col xs={8} md={8}> <ShiftTable rowdays={ weekDays } rowPeriod="Week 03" shiftStore={ this.props.ShiftStore }/> </Col>
           </Row>
           <Row>
             <Col xs={12} md={8}> <PageHeader> Month Table </PageHeader> </Col>
           </Row>
         </Grid>
-        <ShiftTable rowdays={ monthDays } rowPeriod={ `${monthDays[0].date} ~ ${monthDays[monthDays.length - 1].date}`}/>
+        <ShiftTable rowdays={ monthDays } rowPeriod={ `${monthDays[0].date} ~ ${monthDays[monthDays.length - 1].date}`}
+          shiftStore={ this.props.ShiftStore } />
       </div>
     );
   }
 }
 
-@inject("ShiftStore")
+// @inject("ShiftStore")
 @observer
-class ShiftTable extends React.Component<{rowdays?: MonthDate[], rowPeriod: string, ShiftStore?: ShiftStore}, {}> {
+class ShiftTable extends React.Component<{rowdays?: MonthDate[], rowPeriod: string, shiftStore: ShiftStore}, {}> {
   header(day: MonthDate) {
     return <th key={day.date + day.dayOfWeek}> {day.date}</th>;
   }
   addShiftRow(name: string, dataMap: ShiftMap) {
     if (this.props.rowdays)
-      return <ShiftRow name={name} rowdays={this.props.rowdays} dataMap={dataMap} key={name}/>;
+      return <ShiftRow name={name} rowdays={this.props.rowdays} dataMap={dataMap}
+                key={name} shiftStore={ this.props.shiftStore }/>;
   }
   render() {
-    if (!this.props.ShiftStore || !this.props.rowdays)
+    if (!this.props.shiftStore || !this.props.rowdays)
       return <div> Not Yet Initialized </div>;
     return <Table striped bordered condensed hover>
       <thead>
@@ -57,17 +59,17 @@ class ShiftTable extends React.Component<{rowdays?: MonthDate[], rowPeriod: stri
         </tr>
       </thead>
       <tbody>
-        { this.props.ShiftStore.peopleMap.entries().map(p => this.addShiftRow(p[0], p[1]) )}
+        { this.props.shiftStore.peopleMap.entries().map(p => this.addShiftRow(p[0], p[1]) )}
       </tbody>
     </Table>;
   }
 }
 
 @observer
-class ShiftRow extends React.Component<{name: string, rowdays: MonthDate[], dataMap: ShiftMap}, {}> {
+class ShiftRow extends React.Component<{name: string, rowdays: MonthDate[], dataMap: ShiftMap, shiftStore: ShiftStore}, {}> {
   dayToCell(date: MonthDate) {
     return <ShiftCell key={this.props.name + date.date} name={this.props.name} date={date}
-      dataMap={this.props.dataMap} monthView={ this.props.rowdays.length > 20 }/>;
+      dataMap={this.props.dataMap} monthView={ this.props.rowdays.length > 20 } shiftStore={ this.props.shiftStore }/>;
   }
   render() {
     return <tr>
@@ -77,19 +79,18 @@ class ShiftRow extends React.Component<{name: string, rowdays: MonthDate[], data
   }
 }
 
-@inject("ShiftStore")
 @observer
-class ShiftCell extends React.Component<{name: string, date: MonthDate, dataMap: ShiftMap, monthView: boolean, ShiftStore?: ShiftStore}, {}> {
+class ShiftCell extends React.Component<{name: string, date: MonthDate, dataMap: ShiftMap, monthView: boolean, shiftStore: ShiftStore}, {}> {
   eventClick = (eventKey: any) => {
-    if (this.props.ShiftStore && eventKey in Shift)
-      this.props.ShiftStore.SetShift(this.props.name, eventKey, this.props.date);
+    if (this.props.shiftStore && eventKey in Shift)
+      this.props.shiftStore.SetShift(this.props.name, eventKey, this.props.date);
     else
       console.log(`Received unexpected Shift type: ${eventKey}`);
   }
   doubleClick = () => {
     let shift = this.props.dataMap.get(this.props.date.isoFormat);
-    if (this.props.ShiftStore && shift)
-      this.props.ShiftStore.SetWholeWeekShift(this.props.name, shift, this.props.date);
+    if (this.props.shiftStore && shift)
+      this.props.shiftStore.SetWholeWeekShift(this.props.name, shift, this.props.date);
   }
   buttonCell(name: string, shortName = "") {
     return <td className={ name } onDoubleClick={ this.doubleClick } key={this.props.date.isoFormat + name}>
@@ -112,7 +113,7 @@ class ShiftCell extends React.Component<{name: string, date: MonthDate, dataMap:
     }
   }
   render() {
-    if (!this.props.ShiftStore)
+    if (!this.props.shiftStore)
       return <div> Not Yet Initialized </div>;
     if (this.props.date.isoweekdate >= 6)
       return <td className="weekend"></td>;

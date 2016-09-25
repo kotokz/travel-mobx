@@ -9,7 +9,7 @@ if (typeof document !== "undefined") {
   let doc = document.getElementById("root");
 
   if (doc) {
-    const initialState = JSON.parse((window as any).__INITIAL_STATE__ as string);
+    const initialState = JSON.parse(window.__INITIAL_STATE__ as string);
     const stores = createStoresFromState(initialState);
 
     ReactDOM.render(

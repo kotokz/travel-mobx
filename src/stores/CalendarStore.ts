@@ -16,19 +16,19 @@ export interface MomentRange {
 
 export default class CalendarStore implements MobxStore {
     //  @observable state: CalendarState;
-    @observable date: moment.Moment = moment();
-    @observable month: number = moment().month();
-    @observable year: number = moment().year();
-    @observable calendar: MomentRange[] = get_calendar(this.month, this.year);
+    @observable date: moment.Moment;
+    @observable month: number;
+    @observable year: number;
+    @observable calendar: MomentRange[];
 
-    //   constructor() {
-    //       const month = moment().month();
-    //       const year = moment().year();
-    //       this.date = moment();
-    //       this.month = month;
-    //       this.year = year;
-    //       this.calendar = get_calendar(year, month);
-    //   }
+    constructor() {
+        const month = moment().month();
+        const year = moment().year();
+        this.date = moment();
+        this.month = month;
+        this.year = year;
+        this.calendar = get_calendar(year, month);
+    }
 
     ToStringArray(): string[] {
         return [
