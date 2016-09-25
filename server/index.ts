@@ -9,7 +9,7 @@ import {
 } from "./middleware/baseMiddleware";
 import webpackDevMiddleware from "./middleware/webpack-dev";
 import webpackHMRMiddleware from "./middleware/webpack-hmr";
-import { renderReact } from "./middleware/renderMiddleware";
+import { injectState } from "./middleware/renderMiddleware";
 import router from "./router";
 import * as Pug from "koa-pug";
 
@@ -46,8 +46,8 @@ if (config.util.getEnv("NODE_ENV") === "development") {
 
 app
   .use(serveStaticFiles())
-  .use(router.routes())
-  .use(renderReact());
+  .use(injectState())
+  .use(router);
 
 const port = config.get("server.port");
 app.listen(port, () => {

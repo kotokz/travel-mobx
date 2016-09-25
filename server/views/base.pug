@@ -10,5 +10,7 @@ html(lang="en")
         link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,100,700,300italic,100italic,400italic,500italic,700italic,900,900italic")
     body
         div#root!= html
+        script(type='text/javascript').
+            window.__INITIAL_STATE__ = !{JSON.stringify(initialState)};        
         script(src="/dist/vendor.js")
         script(src="/dist/app.js")

@@ -1,6 +1,7 @@
 import { observable } from "mobx";
+import { MobxStore } from "./StoreTypes";
 
-export default class AppState {
+export default class AppState implements MobxStore {
     @observable timer = 0;
 
     constructor() {
@@ -11,5 +12,13 @@ export default class AppState {
 
     resetTimer() {
         this.timer = 0;
+    }
+
+    ToStringArray(): string[] {
+        return [TimeRanges.toString()];
+    }
+
+    FromStringArray(value: string[]) {
+        this.timer = parseInt(value[0]);
     }
 }

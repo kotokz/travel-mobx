@@ -20,8 +20,7 @@ var webpackConfig = {
       'mobx',
       'mobx-react',
       'moment',
-      'lodash',
-      'material-ui'
+      'lodash'
     ]
   },
   output: {

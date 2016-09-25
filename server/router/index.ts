@@ -1,12 +1,11 @@
-import * as koaRouter from "koa-router";
-import { Context } from "koa";
+import router from "./api";
+import render from "./render";
 
-const router = new koaRouter();
-
-router.get("/", async(ctx: Context, next: Function) => {
-  console.log("Setting counter random value and getting a random user profile");
-
-  await next();
-});
-
-export default router;
+export default async (ctx: any, next: () => Promise<any>) => {
+  // api server through koa-router
+  if (ctx.path.match(/^\/api/)) {
+    return await router.routes()(ctx, next);
+  }
+  // others react-router to render
+  await render(ctx, next);
+};

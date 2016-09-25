@@ -4,6 +4,7 @@ declare module 'react-hot-loader';
 interface Window {
   __INITIAL_STATE__?: Object
 }
+
 declare interface ObjectConstructor {
   assign(...objects: any[]): any;
 }

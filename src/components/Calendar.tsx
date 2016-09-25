@@ -3,20 +3,20 @@ import * as moment from "moment";
 import { observer, inject } from "mobx-react";
 import CalendarStore, {MomentRange} from "../stores/CalendarStore";
 
-@inject("calendarStore")
+@inject("CalendarStore")
 @observer
-export default class Calendar extends React.Component<{calendarStore?: CalendarStore}, {}> {
+export default class Calendar extends React.Component<{CalendarStore?: CalendarStore}, {}> {
 
     nextMonth = () => {
-        if (this.props.calendarStore)
-           this.props.calendarStore.nextMonth();
+        if (this.props.CalendarStore)
+           this.props.CalendarStore.nextMonth();
     }
     previousMonth = () => {
-        if (this.props.calendarStore)
-           this.props.calendarStore.previousMonth();
+        if (this.props.CalendarStore)
+           this.props.CalendarStore.previousMonth();
     }
     render() {
-        if (!this.props.calendarStore)
+        if (!this.props.CalendarStore)
             return <div> Not Yet Initialized </div>;
         return <div>
             <div className="calendar">
@@ -27,7 +27,7 @@ export default class Calendar extends React.Component<{calendarStore?: CalendarS
                                 <a href="#" className="calendar__nav calendar__nav--previous" onClick={ this.previousMonth }>&lt;</a>
                             </td>
                             <td colSpan={5}><span className="calendar__selected-date">
-                                { moment().month(this.props.calendarStore.month).format("MMMM") } { this.props.calendarStore.year }
+                                { moment().month(this.props.CalendarStore.month).format("MMMM") } { this.props.CalendarStore.year }
                                 </span></td>
                             <td>
                                 <a href="#" className="calendar__nav calendar__nav--next" onClick={ this.nextMonth }>&gt;</a>
@@ -35,13 +35,13 @@ export default class Calendar extends React.Component<{calendarStore?: CalendarS
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.calendarStore.calendar.map((week: MomentRange, index: number) => {
+                        {this.props.CalendarStore.calendar.map((week: MomentRange, index: number) => {
                             return <WeekRow key={index} week={week}/>;
                         })}
                     </tbody>
                 </table>
             </div>
-            <SelectionDiv calendarStore={this.props.calendarStore}/>
+            <SelectionDiv calendarStore={this.props.CalendarStore}/>
         </div>;
     }
 };
@@ -73,20 +73,20 @@ class WeekRow extends React.Component<{week: MomentRange}, {}> {
     }
 }
 
-@inject("calendarStore")
+@inject("CalendarStore")
 @observer
-class DayCell extends React.Component<{day: moment.Moment, calendarStore?: CalendarStore}, {}> {
+class DayCell extends React.Component<{day: moment.Moment, CalendarStore?: CalendarStore}, {}> {
     setDate(day: moment.Moment) {
-        if (this.props.calendarStore)
-            this.props.calendarStore.setDate(day);
+        if (this.props.CalendarStore)
+            this.props.CalendarStore.setDate(day);
     }
     render() {
-        if (!this.props.calendarStore)
+        if (!this.props.CalendarStore)
             return <td><div> Not Yet Initialized </div></td>;
         const day = this.props.day;
-        const isCurrentMonth = day.month() === this.props.calendarStore.month;
+        const isCurrentMonth = day.month() === this.props.CalendarStore.month;
         const isToday = day.format("DD-MM-YYYY") === moment().format("DD-MM-YYYY");
-        const isSelected = day.format("DD-MM-YYYY") === this.props.calendarStore.date.format("DD-MM-YYYY");
+        const isSelected = day.format("DD-MM-YYYY") === this.props.CalendarStore.date.format("DD-MM-YYYY");
         let dayClasses = "calendar__day";
         if (!isCurrentMonth) {
             dayClasses += " calendar__day--muted";

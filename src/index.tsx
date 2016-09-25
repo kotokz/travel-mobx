@@ -2,24 +2,20 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "mobx-react";
 import routes from "./routes";
+import { createStoresFromState } from "./utils";
 
-import AppState from "./stores/AppStore";
-import ShiftStore from "./stores/ShiftStore";
-import CalendarStore from "./stores/CalendarStore";
+if (typeof document !== "undefined") {
+  require("./styles/app.css");
+  let doc = document.getElementById("root");
 
-import "./styles/app.css";
+  if (doc) {
+    const initialState = JSON.parse((window as any).__INITIAL_STATE__ as string);
+    const stores = createStoresFromState(initialState);
 
-const appState =  new AppState();
-const shiftStore = new ShiftStore();
-shiftStore.getAllProducts();
-
-const calendarStore = new CalendarStore();
-
-let doc = document.getElementById("root");
-
-if (doc)
-  ReactDOM.render(
-    <Provider appState={appState} shiftStore={shiftStore} calendarStore={calendarStore}>
-      { routes }
-    </Provider>,
-     doc);
+    ReactDOM.render(
+      <Provider { ...stores }>
+        { routes }
+      </Provider>,
+      doc);
+  }
+}

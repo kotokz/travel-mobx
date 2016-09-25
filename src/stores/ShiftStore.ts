@@ -2,10 +2,23 @@ import { action, ObservableMap, asMap, transaction } from "mobx";
 import * as moment from "moment";
 import * as _ from "lodash";
 import { Shift, SampleData, MonthDate, ShiftMap } from "./ShiftTypes";
+import { MobxStore } from "./StoreTypes";
 
-export default class ShiftStore {
+export default class ShiftStore implements MobxStore {
   public peopleMap: ObservableMap<ShiftMap> = asMap();
 
+  constructor() {
+    this.getAllProducts();
+  }
+  ToStringArray(): string[] {
+    return [];
+  }
+
+  FromStringArray(value: string[]) {
+    // transaction(() => {
+    //   this.peopleMap = asMap().merge(value);
+    // });
+  }
   getDaysByMonth(year: number, month: number): Array<MonthDate> {
     let monthDate = moment().year(year).month(month).startOf("month");
     return this.DateToArray(monthDate, monthDate.daysInMonth());
